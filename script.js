@@ -10,6 +10,24 @@ const wordList = [
 	'geeuw'
 ];
 
+const startTheGame = () => {
+	initGame();
+	secretWord = chooseRandomWord(wordList).split('');
+	solveTheWord(secretWord, arrayOfGuessedLetters);
+	triedLetters(secretWord, arrayOfGuessedLetters);
+};
+
+//reset dom en variables
+const initGame = () => {
+	tries = 0;
+	arrayOfGuessedLetters = [];
+	inputField.disabled = false;
+	document.querySelector('.win').style.display = 'none';
+	document.querySelector('.lose').style.display = 'none';
+	document.querySelector('.lives span').innerHTML = 5;
+	inputField.value = '';
+};
+
 const chooseRandomWord = list => {
 	return list[Math.floor(Math.random() * list.length)];
 };
@@ -23,14 +41,15 @@ const validateInput = () => {
 	}
 	//wrong guess
 	if (!secretWord.includes(userGuess)) {
-		failedTry();
+		document.querySelector('.lives span').innerHTML = failedTry();
 	}
 	processGuessedLetter(userGuess);
 };
+
 //if the user guessed wrong, the user has one less try remaining
 const failedTry = () => {
 	tries++;
-	document.querySelector('.lives span').innerHTML = 5 - tries;
+	return 5 - tries;
 };
 
 const processGuessedLetter = userGuess => {
@@ -39,7 +58,7 @@ const processGuessedLetter = userGuess => {
 	triedLetters(secretWord, arrayOfGuessedLetters);
 	gameStatus(secretWord, arrayOfGuessedLetters);
 };
-
+//check if game is won or lost
 const gameStatus = (secretWord, arrayOfGuessedLetters) => {
 	if (wordGuessed(secretWord, arrayOfGuessedLetters)) {
 		gameEnd(true);
@@ -52,7 +71,7 @@ const wordGuessed = (secretWord, arrayOfGuessedLetters) => {
 	let remainingLetters = secretWord.filter(letter => {
 		return !arrayOfGuessedLetters.includes(letter);
 	});
-	return remainingLetters.length === 0;
+	return !remainingLetters.length > 0;
 };
 
 const gameEnd = winLose => {
@@ -69,7 +88,7 @@ const triedLetters = (secretWord, arrayOfGuessedLetters) => {
 	let wrongLetters = arrayOfGuessedLetters.filter(function(letter) {
 		return !secretWord.includes(letter);
 	});
-	//document.querySelector('.guessed_letters').innerHTML = wrongLetters.join(' ');
+	document.querySelector('.guessed_letters').innerHTML = wrongLetters.join(' ');
 };
 
 const solveTheWord = (secretWord, inputLetterWords) => {
@@ -83,23 +102,6 @@ const solveTheWord = (secretWord, inputLetterWords) => {
 	document.querySelector('.the_word').innerHTML = displayLettersInWord.join(
 		' '
 	);
-};
-
-const startTheGame = () => {
-	resetTheDom();
-	secretWord = chooseRandomWord(wordList).split('');
-	tries = 0;
-	document.querySelector('.lives span').innerHTML = 5;
-	arrayOfGuessedLetters = [];
-	solveTheWord(secretWord, arrayOfGuessedLetters);
-	triedLetters(secretWord, arrayOfGuessedLetters);
-};
-
-const resetTheDom = () => {
-	inputField.disabled = false;
-	document.querySelector('.win').style.display = 'none';
-	document.querySelector('.lose').style.display = 'none';
-	inputField.value = '';
 };
 
 document.addEventListener('DOMContentLoaded', function() {
