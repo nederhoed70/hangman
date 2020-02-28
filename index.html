@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Hangman</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+    />
   </head>
   <body>
     <div class="wrapper">
@@ -17,14 +21,16 @@
 
         <div id="noose"></div>
 
-        <div id="youwin" class="win">
-          <h2>You won!</h2>
-          <img src="win.gif" />
+        <div id="baseimg">
+          <img src="wannaplay.jpg" width="317" ; height="380" />
         </div>
 
-        <div class="lose">
-          <h2>You lost..</h2>
-          <img src="lose.gif" />
+        <div id="youwin" class="win animated jackInTheBox">
+          <img src="happyman.jpg" />
+        </div>
+
+        <div class="lose animated swing">
+          <img src="lost.gif" />
           <p>The chosen word was: <span></span></p>
         </div>
         <div id="inputletter">
