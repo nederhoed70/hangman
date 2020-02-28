@@ -1,10 +1,11 @@
 const triedLetters = require('./script.js');
 
-test('check gefaailde letters in array komen', function() {
-	const expected = 'wo';
-	const output = triedLetters('woord', ['b', 'o', 'w', 'r']);
-	expect(output).toBe(expected);
-});
+// CHECK OF LIJST MET GEFAALDE LETTERS WORDT GEUPDATE
+// test('check gefaailde letters in array komen', function() {
+// 	const expected = 'wo';
+// 	const output = triedLetters('woord', ['b', 'o', 'w', 'r']);
+// 	expect(output).toBe(expected);
+// });
 
 //TEST OF AANTAL TRIES WORDT BIJGEWERKT **failedTry**
 // test('check of aantal gefailde tries vermeerdert', function() {
