@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,78 +8,44 @@
 		<link rel="stylesheet" type="text/css" href="style.css" />
 	</head>
 	<body>
-		<h1>Simple 'Hangman' Game</h1>
-		<p>[no people will actually be harmed during this game]</p>
+		<div class="wrapper">
+			<div class="content">
+				<div class="title">
+					<h1>Simple 'Hangman' Game</h1>
+					<p>[no people will actually be harmed during this game]</p>
+				</div>
 
-		<div class="win">
-			<h2>You won!</h2>
-			<img src="win.gif" />
+				<div id="noose"></div>
+
+				<div id="youwin" class="win">
+					<h2>You won!</h2>
+					<img src="win.gif" />
+				</div>
+
+				<div class="lose">
+					<h2>You lost..</h2>
+					<img src="lose.gif" />
+					<p>The chosen word was: <span></span></p>
+				</div>
+				<div id="inputletter">
+					<input type="text" placeholder="Guess a letter" maxlength="1" />
+					<button class="guess">Guess</button>
+					<button class="restart">Restart</button>
+				</div>
+				<div id="current">
+					<h2>Current word:</h2>
+					<div class="the_word">_ _ _ _ _</div>
+				</div>
+				<div id="incorrect">
+					<h3>Incorrectly guessed letters:</h3>
+					<div class="guessed_letters"></div>
+				</div>
+				<p id="livesleft" class="lives">
+					You have <span></span> lives remaining
+				</p>
+			</div>
 		</div>
-
-		<div class="lose">
-			<h2>You lost..</h2>
-			<img src="lose.gif" />
-			<p>The chosen word was: <span></span></p>
-		</div>
-
-		<input type="text" placeholder="Guess a letter" maxlength="1" />
-		<button class="guess">Guess</button>
-		<button class="restart">Restart</button>
-		<h2>Current word:</h2>
-		<div class="the_word">_ _ _ _ _</div>
-		<h3>Incorrectly guessed letters:</h3>
-		<div class="guessed_letters"></div>
-		<p class="lives">You have <span></span> lives remaining</p>
+		<div class="credits">Created by Jeroen N. and Patrick B.</div>
 		<script type="text/javascript" src="script.js"></script>
 	</body>
-=======
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Hangman</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="content">
-        <div class="title">
-          <h1>Simple 'Hangman' Game</h1>
-          <p>[no people will actually be harmed during this game]</p>
-        </div>
-
-        <div id="noose"></div>
-
-        <div id="youwin" class="win">
-          <h2>You won!</h2>
-          <img src="win.gif" />
-        </div>
-
-        <div class="lose">
-          <h2>You lost..</h2>
-          <img src="lose.gif" />
-          <p>The chosen word was: <span></span></p>
-        </div>
-        <div id="inputletter">
-          <input type="text" placeholder="Guess a letter" maxlength="1" />
-          <button class="guess">Guess</button>
-          <button class="restart">Restart</button>
-        </div>
-        <div id="current">
-          <h2>Current word:</h2>
-          <div class="the_word">_ _ _ _ _</div>
-        </div>
-        <div id="incorrect">
-          <h3>Incorrectly guessed letters:</h3>
-          <div class="guessed_letters"></div>
-        </div>
-        <p id="livesleft" class="lives">
-          You have <span></span> lives remaining
-        </p>
-      </div>
-    </div>
-    <div class="credits">Created by Jeroen N. and Patrick B.</div>
-    <script type="text/javascript" src="script.js"></script>
-  </body>
->>>>>>> 7092abbeec7f23b29ef26ee26bb462c5c9f6efde
 </html>
