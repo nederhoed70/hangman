@@ -1,4 +1,20 @@
-# Winc Hangman
-Project: Galgje met Unit Tests
+# Hangman requirements
+## taakverdeling:
+PATRICK: game styling UI UX met css
+JEROEN: code refactoring
+## Taken: 
+1. code refactoring
+2. game styling UI UX met css
+3. GIT remote aanmaken
+4. branch names , commit messages, pull messages duidelijk beschrijven
 
-![](https://lh3.google.com/u/0/d/1HyprxvRmFZQiWiJ0N9ZzLcQk_w8TFSmH=w1920-h937-iv1)
+## Hangman:
+- Random woord kiezen
+- er moet één geldige letter ingevoerd kunnen worden
+- check of letter niet eerder is ingevoerd, zo ja warning
+- check of letter in het woord voorkomt
+- ja: toevoegen aan raadwoord, (gewonnen?)
+- nee: letter toevoegen aan incorrect
+- nee: beurt (levens +1)-> verloren?
+- gewonnen? Animatie WIN
+- verloren? Animatie LOSE
