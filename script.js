@@ -1,138 +1,110 @@
-// Initialize ALL global variables here
-// allTheWords = []
-// This code here selects a random word
+const guessButton = document.querySelector('.guess');
+const inputField = document.querySelector('input');
 const wordList = [
-  "vis",
-  "toeter",
-  "developer",
-  "telefoon",
-  "moeder",
-  "snoer",
-  "geeuw"
+	'vis',
+	'toeter',
+	'developer',
+	'telefoon',
+	'moeder',
+	'snoer',
+	'geeuw'
 ];
-let maxAmount = 5;
 
-let word;
-const wordpicker = function(list) {
-  let word = "sinaasappel";
-  let index = Math.floor(Math.random() * list.length);
-  const x = list;
-  console.log("wat ben ik?", word);
-  return x[index];
+const chooseRandomWord = list => {
+	return list[Math.floor(Math.random() * list.length)];
 };
 
-let inputs;
-const wordGuessed = function(word, inputs) {
-  // remove all letters from word that are already guessed
-  // We can do this with a for loop to.
-  let remaining = word.filter(function(letter) {
-    // If the letter is guessed return true (we want to remove that right away)
-    return !inputs.includes(letter);
-  });
-  // If we have letters left, right?
-  return remaining.length === 0;
+const validateInput = () => {
+	let userGuess = document.querySelector('input').value;
+	document.querySelector('input').value = '';
+	//previously guessed letter of empty input
+	if (arrayOfGuessedLetters.includes(userGuess) || userGuess === '') {
+		return;
+	}
+	//wrong guess
+	if (!secretWord.includes(userGuess)) {
+		failedTry();
+	}
+	processGuessedLetter(userGuess);
+};
+//if the user guessed wrong, the user has one less try remaining
+const failedTry = () => {
+	tries++;
+	document.querySelector('.lives span').innerHTML = 5 - tries;
 };
 
-const clean = function() {
-  document.querySelector("input").value = "";
+const processGuessedLetter = userGuess => {
+	arrayOfGuessedLetters.push(userGuess);
+	solveTheWord(secretWord, arrayOfGuessedLetters);
+	triedLetters(secretWord, arrayOfGuessedLetters);
+	gameStatus(secretWord, arrayOfGuessedLetters);
 };
 
-let gameOver;
-const winTheGame = function() {
-  document.querySelector(".win").style.display = "block";
-  gameOver = true;
+const gameStatus = (secretWord, arrayOfGuessedLetters) => {
+	if (wordGuessed(secretWord, arrayOfGuessedLetters)) {
+		gameEnd(true);
+	} else if (tries >= 5) {
+		gameEnd(false);
+	}
 };
 
-const lose4 = function() {
-  // when losing 3 times, this has to happen
-  document.querySelector(".lose").style.display = "block";
-  gameOver = true;
+const wordGuessed = (secretWord, arrayOfGuessedLetters) => {
+	let remainingLetters = secretWord.filter(letter => {
+		return !arrayOfGuessedLetters.includes(letter);
+	});
+	return remainingLetters.length === 0;
 };
 
-const spanTheWord1 = function(word) {
-  document.querySelector(".lose p span").innerHTML = `"${word.join("")}"`;
+const gameEnd = winLose => {
+	inputField.disabled = true;
+	if (winLose) {
+		document.querySelector('.win').style.display = 'block';
+	} else {
+		document.querySelector('.lose p span').innerHTML = secretWord.join('');
+		document.querySelector('.lose').style.display = 'block';
+	}
 };
 
-let tries = 0;
-const updateTriesDisplay = function(tries) {
-  document.querySelector(".lives span").innerHTML = 5 - tries;
+const triedLetters = (secretWord, arrayOfGuessedLetters) => {
+	let wrongLetters = arrayOfGuessedLetters.filter(function(letter) {
+		return !secretWord.includes(letter);
+	});
+	//document.querySelector('.guessed_letters').innerHTML = wrongLetters.join(' ');
 };
 
-const letters = function(word, inputs) {
-  let wrongLetters = inputs.filter(function(letter) {
-    // If the letter is in the word return.... false/true (we want to remove that then)
-    return !word.includes(letter);
-  });
-  document.querySelector(".guessed_letters").innerHTML = wrongLetters.join(" ");
+const solveTheWord = (secretWord, inputLetterWords) => {
+	let displayLettersInWord = secretWord.map(letter => {
+		if (inputLetterWords.includes(letter)) {
+			return letter;
+		} else {
+			return '_';
+		}
+	});
+	document.querySelector('.the_word').innerHTML = displayLettersInWord.join(
+		' '
+	);
 };
 
-const theWord = function(word, inputLetterWords) {
-  let display = word.map(function(letter) {
-    if (inputLetterWords.includes(letter)) {
-      return letter;
-    } else {
-      return "_";
-    }
-  });
-  document.querySelector(".the_word").innerHTML = display.join(" ");
+const startTheGame = () => {
+	resetTheDom();
+	secretWord = chooseRandomWord(wordList).split('');
+	tries = 0;
+	document.querySelector('.lives span').innerHTML = 5;
+	arrayOfGuessedLetters = [];
+	solveTheWord(secretWord, arrayOfGuessedLetters);
+	triedLetters(secretWord, arrayOfGuessedLetters);
 };
 
-const guessLetter = function() {
-  if (gameOver) {
-    return;
-  }
-  const input1 = document.querySelector("input").value;
-  document.querySelector("input").value = "";
-
-  if (inputs.includes(input1) || input1 === "") {
-    return;
-  }
-
-  if (!word.includes(input1)) {
-    tries++;
-    document.querySelector(".lives span").innerHTML = 5 - tries;
-  }
-
-  inputs.push(input1);
-  theWord(word, inputs);
-  letters(word, inputs);
-
-  if (wordGuessed(word, inputs)) {
-    winTheGame();
-  } else if (tries >= 5) {
-    lose4();
-  }
+const resetTheDom = () => {
+	inputField.disabled = false;
+	document.querySelector('.win').style.display = 'none';
+	document.querySelector('.lose').style.display = 'none';
+	inputField.value = '';
 };
 
-function getThePlayer(player) {
-  let play = document.getElementById("player1");
-  play = play + "We are about to start the game";
-  return play;
-}
-
-function beginTheGameWithPlayer(player1) {
-  getThePlayer(player1);
-  gameOver = false;
-  document.querySelector(".win").style.display = "none";
-  document.querySelector(".lose").style.display = "none";
-  document.querySelector("input").value = "";
-
-  word = wordpicker(wordList).split("");
-  document.querySelector(".lose p span").innerHTML = `"${word.join("")}"`;
-  word;
-
-  tries = 0;
-  document.querySelector(".lives span").innerHTML = 5 - 0;
-
-  inputs = [];
-  theWord(word, inputs);
-  letters(word, inputs);
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-  document.querySelector(".guess").addEventListener("click", guessLetter);
-  document
-    .querySelector(".restart")
-    .addEventListener("click", beginTheGameWithPlayer);
-  beginTheGameWithPlayer();
+document.addEventListener('DOMContentLoaded', function() {
+	guessButton.addEventListener('click', validateInput);
+	document.querySelector('.restart').addEventListener('click', startTheGame);
+	startTheGame();
 });
+module.exports = triedLetters;
