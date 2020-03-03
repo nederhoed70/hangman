@@ -2,7 +2,7 @@ const triedLetters = require('./script.js');
 
 // CHECK OF LIJST MET GEFAALDE LETTERS WORDT GEUPDATE
 // test('check gefaailde letters in array komen', function() {
-// 	const expected = 'wo';
+// 	const expected = 'b';
 // 	const output = triedLetters('woord', ['b', 'o', 'w', 'r']);
 // 	expect(output).toBe(expected);
 // });
